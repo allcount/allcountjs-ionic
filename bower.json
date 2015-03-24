@@ -21,7 +21,7 @@
     "tests"
   ],
   "dependencies": {
-    "allcount-angular-base": "allcount/allcountjs-angular-base",
+    "allcountjs-angular-base": "allcount/allcountjs-angular-base",
     "jquery.inputmask": "3.1.27"
   }
 }

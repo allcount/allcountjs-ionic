@@ -1,4 +1,4 @@
-var allcountMobileModule = angular.module("allcount-mobile", ["allcount-base"]);
+var allcountMobileModule = angular.module("allcount-mobile", ["allcount-base", "ionic"]);
 
 allcountMobileModule.config(["$httpProvider", function ($httpProvider) {
     $httpProvider.interceptors.push(['lcApiConfig', '$q', function(lcApiConfig, $q) {
@@ -30,7 +30,12 @@ allcountMobileModule.config(["$stateProvider", function ($stateProvider) {
                 url: stateUrl || '/app',
                 abstract: true,
                 templateUrl: templatePath + "/menu.html",
-                controller: 'MenuController'
+                controller: 'MenuController',
+                resolve: {
+                    templatePath: function () {
+                        return templatePath;
+                    }
+                }
             });
     };
     $stateProvider.setupStandardAllcountStates = function (statePrefix, templatePath) {
@@ -452,10 +457,10 @@ allcountMobileModule.controller('MainScreenController', function ($scope, lcApi)
     })
 });
 
-allcountMobileModule.controller('MenuController', function ($scope, $ionicModal, lcApi, lcApiConfig, $window) {
+allcountMobileModule.controller('MenuController', function ($scope, $ionicModal, lcApi, lcApiConfig, $window, templatePath) {
     $scope.loginData = {};
 
-    $ionicModal.fromTemplateUrl('templates/login.html', {
+    $ionicModal.fromTemplateUrl(templatePath + '/login.html', {
         scope: $scope
     }).then(function (modal) {
         $scope.modal = modal;

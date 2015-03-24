@@ -477,7 +477,7 @@ allcountMobileModule.controller('MenuController', function ($scope, $ionicModal,
     $scope.doLogin = function () {
         lcApi.signIn($scope.loginData.username, $scope.loginData.password).then(function () {
             $scope.closeLogin();
-            $window.location = '/';
+            $window.location.reload(true)
         });
     };
 
@@ -487,6 +487,6 @@ allcountMobileModule.controller('MenuController', function ($scope, $ionicModal,
 
     $scope.signOut = function () {
         lcApi.signOut();
-        $window.location = '/';
+        $window.location.reload(true)
     }
 });

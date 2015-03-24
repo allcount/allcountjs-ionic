@@ -1,0 +1,17 @@
+<ion-view>
+    <ion-nav-title>
+        {{appInfo.appName}}
+    </ion-nav-title>
+    <ion-content>
+        <ion-list class="lc-menu">
+            <div ng-repeat="item in menuItems">
+                <div class="item" ng-class="{'item-divider': item.children && item.children.length}" ng-href="#/app/entity/{{item.entityTypeId}}">
+                    {{item.name}}
+                </div>
+                <ion-item nav-clear menu-close ng-href="#/app/entity/{{child.entityTypeId}}" ng-repeat="child in item.children">
+                    {{child.name}}
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

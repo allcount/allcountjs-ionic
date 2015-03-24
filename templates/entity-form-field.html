@@ -1,0 +1,17 @@
+<ion-view>
+    <ion-nav-title>
+        {{viewState.editForm.fieldToDescription()[field].name}}
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-checkmark" ng-click="saveEntity()"></button>
+    </ion-nav-buttons>
+  <ion-content>
+    <ion-list lc-form="mainEntityTypeId"
+              entity-id="entityId"
+              publish-methods="viewState.editForm"
+              entity="entity"
+              is-editor="true">
+        <div lc-field="fieldToDesc[field]" ng-model="entity[field]" is-editor="isEditor"></div>
+    </ion-list>
+  </ion-content>
+</ion-view>

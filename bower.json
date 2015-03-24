@@ -1,0 +1,27 @@
+{
+  "name": "allcountjs-ionic",
+  "version": "1.0.0",
+  "homepage": "http://allcountjs.com",
+  "authors": [
+    "Pavel Tiunov <pavel.tiunov@gmail.com>"
+  ],
+  "description": "AllcountJS Ionic integration",
+  "main": "allcount-mobile.js",
+  "keywords": [
+    "allcountjs",
+    "angular",
+    "ionic"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "allcount-angular-base": "allcount/allcountjs-angular-base",
+    "jquery.inputmask": "3.1.27"
+  }
+}

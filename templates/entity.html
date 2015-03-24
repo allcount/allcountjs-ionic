@@ -1,0 +1,30 @@
+<ion-view view-title="{{title}}">
+    <ion-nav-buttons side="right">
+        <a class="button button-icon icon ion-ios-plus-empty" ng-href="#/app/entity/{{mainEntityTypeId}}/new"></a>
+    </ion-nav-buttons>
+    <ion-content>
+        <ion-list lc-list="mainEntityTypeId"
+                  filtering="viewState.filtering"
+                  edit-mode="viewState.editState"
+                  paging="{start: 0, count: 50}"
+                  total-row="viewState.totalRow"
+                  publish-methods="viewState.gridMethods"
+                  infinite-scroll-end="viewState.infiniteScrollEnd"
+                >
+            <ion-item ng-repeat="item in items" ng-href="#/app/entity/{{mainEntityTypeId}}/{{item.id}}">
+                <h2>{{item[referenceNameExpression]}}</h2>
+                <p>{{item.date | date}}</p>
+                <!--<div class="item item-text-wrap" ng-repeat="fd in fieldDescriptions" ng-if="item[fd.field] != null">
+                    {{fd.name}}:
+                    <span lc-field="fd" ng-model="item[fd.field]" is-editor="false"></span>
+                </div>-->
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll
+                ng-if="!viewState.infiniteScrollEnd"
+                on-infinite="loadNextItems()"
+                distance="1%"
+                immediate-check="true">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

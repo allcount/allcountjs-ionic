@@ -1,0 +1,19 @@
+<ion-view>
+    <ion-nav-title lc-message="Create">
+    </ion-nav-title>
+    <ion-content>
+        <ion-list lc-form="mainEntityTypeId"
+                  entity="template"
+                  publish-methods="viewState.editForm">
+            <ion-item class="item-icon-right" ng-repeat="fd in fieldDescriptions"
+                      ng-href="#/app/entity/{{entityTypeId}}/{{entityId}}/{{fd.field}}">
+                <span>{{fd.name}}</span>
+                <span lc-field="fd" ng-model="entity[fd.field]"></span>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+        </ion-list>
+        <div class="padding">
+            <button class="button button-block button-positive" lc-message="Create" ng-click="createEntity()"></button>
+        </div>
+    </ion-content>
+</ion-view>

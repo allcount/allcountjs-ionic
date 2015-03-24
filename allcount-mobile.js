@@ -14,7 +14,7 @@ allcountMobileModule.config(["$httpProvider", function ($httpProvider) {
                 return config;
             },
             responseError: function (error) {
-                if (error.status === 0) { //TODO error.status === 403
+                if (error.status === 403) { //TODO check response
                     lcApiConfig.authenticateFailedListener && lcApiConfig.authenticateFailedListener();
                 }
                 return $q.reject(error);

@@ -14,7 +14,7 @@ allcountMobileModule.config(["$httpProvider", function ($httpProvider) {
                 return config;
             },
             responseError: function (error) {
-                if (error.status === 403) { //TODO check response
+                if (error.status === 403 && error.data === "Not authenticated") { //TODO check response
                     lcApiConfig.authenticateFailedListener && lcApiConfig.authenticateFailedListener();
                 }
                 return $q.reject(error);
@@ -208,14 +208,14 @@ allcountMobileModule.config(["fieldRenderingServiceProvider", function (fieldRen
                 return wrapWithItemLabel($compile(input)(scope));
             }],
             integer: [function (value) {
-                return value;
+                return value + "";
             }, function (fieldDescription, controller, updateValue, clone, scope) {
-                scope.integerValue = controller.$viewValue + "";
+                scope.integerValue = controller.$viewValue;
                 scope.pattern = /\d+/;
                 scope.$watch('integerValue', function (integerValue) {
-                    controller.$setViewValue(integerValue && parseInt(integerValue, 10) || undefined);
+                    controller.$setViewValue(integerValue);
                 });
-                return wrapWithItemLabel($compile('<input ng-model="integerValue" class="item-node" ng-pattern="pattern">')(scope));
+                return wrapWithItemLabel($compile('<input type="number" ng-model="integerValue" class="item-node" ng-pattern="pattern">')(scope));
             }],
             money: [function (value) {
                 return renderCurrency(value);

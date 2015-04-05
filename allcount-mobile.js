@@ -386,7 +386,7 @@ allcountMobileModule.controller('EntityController', function ($scope, $statePara
     });
 });
 
-allcountMobileModule.controller('EntityFormController', function ($scope, $stateParams, $rootScope, $ionicHistory, $ionicPopup, lcApi) {
+allcountMobileModule.controller('EntityFormController', function ($scope, $stateParams, $rootScope, $ionicHistory, $ionicPopup, lcApi, messages) {
     $scope.viewState = {};
     $scope.mainEntityTypeId = $stateParams.entityTypeId;
     $scope.entityId = $stateParams.entityId;
@@ -399,10 +399,10 @@ allcountMobileModule.controller('EntityFormController', function ($scope, $state
         }
     );
 
-    $scope.deleteEntity = function () {
+    $scope.deleteEntityWithConfirm = function () {
         var confirmPopup = $ionicPopup.confirm({
-            title: 'Delete',
-            template: 'Are you sure you want to delete it?'
+            title: messages('Delete'),
+            template: messages('Are you sure you want to delete it?')
         });
         confirmPopup.then(function(res) {
             if(res) {

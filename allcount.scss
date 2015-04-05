@@ -1,0 +1,15 @@
+.textarea-field-paragraph {
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.centered-spinner {
+  height: 60px;
+  width: 100%;
+  display: block;
+
+  @include display-flex();
+  @include flex-direction(row);
+  @include justify-content(center);
+  @include align-items(center);
+}

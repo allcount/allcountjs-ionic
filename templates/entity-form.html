@@ -6,15 +6,18 @@
         <ion-list lc-form="mainEntityTypeId"
                   entity-id="entityId"
                   publish-methods="viewState.editForm">
+            <div class="padding centered-spinner" ng-if="formLoading">
+                <ion-spinner></ion-spinner>
+            </div>
             <ion-item class="item-icon-right" ng-repeat="fd in fieldDescriptions"
-                      ng-href="#/app/entity/{{entityTypeId}}/{{entityId}}/{{fd.field}}">
+                      ng-href="#/app/entity/{{entityTypeId}}/{{entityId}}/{{fd.field}}" ng-if="!formLoading">
                 <span>{{fd.name}}</span>
                 <span lc-field="fd" ng-model="entity[fd.field]"></span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
+            <div class="padding" ng-if="!formLoading">
+                <button class="button button-block button-assertive" lc-message="Delete" ng-click="deleteEntityWithConfirm()"></button>
+            </div>
         </ion-list>
-        <div class="padding">
-            <button class="button button-block button-assertive" lc-message="Delete" ng-click="deleteEntity()"></button>
-        </div>
     </ion-content>
 </ion-view>

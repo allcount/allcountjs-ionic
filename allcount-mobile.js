@@ -90,8 +90,10 @@ allcountMobileModule.config(["$stateProvider", function ($stateProvider) {
 
 allcountBaseModule.factory("lcApiConfig", function () {
     return {
+        serverUrl: localStorage.serverUrl,
         setServerUrl: function (serverUrl) {
             this.serverUrl = serverUrl;
+            localStorage.serverUrl = serverUrl;
         },
         setAuthenticateFailedListener: function (listener) {
             this.authenticateFailedListener = listener;

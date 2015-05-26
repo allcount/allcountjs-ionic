@@ -19,9 +19,12 @@
     <ion-content>
       <ion-list class="lc-menu">
         <div ng-repeat="item in menuItems">
-          <div class="item" ng-class="{'item-divider': item.children && item.children.length}" ng-href="#/app/entity/{{item.entityTypeId}}">
+          <div class="item item-divider" ng-if="item.children && item.children.length">
             {{item.name}}
           </div>
+          <ion-item class="item" ng-if="!item.children || !item.children.length" ng-class="{'item-divider': item.children && item.children.length}" nav-clear menu-close ng-href="#/app/entity/{{item.entityTypeId}}">
+            {{item.name}}
+          </ion-item>
           <ion-item nav-clear menu-close ng-href="#/app/entity/{{child.entityTypeId}}" ng-repeat="child in item.children">
             {{child.name}}
           </ion-item>

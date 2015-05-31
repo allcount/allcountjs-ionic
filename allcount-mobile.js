@@ -210,7 +210,7 @@ allcountMobileModule.config(["fieldRenderingServiceProvider", function (fieldRen
                 return wrapWithItemLabel($compile(input)(scope));
             }],
             integer: [function (value) {
-                return value + "";
+                return value;
             }, function (fieldDescription, controller, updateValue, clone, scope) {
                 scope.integerValue = controller.$viewValue;
                 scope.pattern = /\d+/;

@@ -343,11 +343,11 @@ allcountMobileModule.config(["fieldRenderingServiceProvider", function (fieldRen
         return function (value, fieldScope) {
             var elem;
             if (value instanceof jQuery) {
-                elem = $compile('<div class="item-note"></div>')(fieldScope);
+                elem = $compile('<span></span>')(fieldScope);
                 elem.append(value);
             } else {
                 fieldScope.renderedText = value || '';
-                elem = $compile('<div class="item-note">{{renderedText}}</div>')(fieldScope);
+                elem = $compile('<span>{{renderedText}}</span>')(fieldScope);
             }
             return elem;
         }
@@ -386,6 +386,27 @@ allcountMobileModule.controller('EntityController', function ($scope, $statePara
         $scope.title = entityDescription.title;
         $scope.referenceNameExpression = entityDescription.referenceNameExpression;
     });
+
+    $scope.mainFieldDescription = function (fieldDescriptions) {
+        if (!fieldDescriptions) {
+            return undefined;
+        }
+        var mainField = _.find(fieldDescriptions, function (fd) {
+            return fd.field === $scope.referenceNameExpression;
+        });
+        return mainField || fieldDescriptions[0];
+    };
+
+    $scope.additionalFieldDescription = function (fieldDescriptions) {
+        if (!fieldDescriptions) {
+            return undefined;
+        }
+        var mainFd = $scope.mainFieldDescription(fieldDescriptions);
+        return _.find(fieldDescriptions, function (fd) {
+            return fd.fieldTypeId === 'date' && mainFd !== fd;
+        });
+    };
+
 });
 
 allcountMobileModule.controller('EntityFormController', function ($scope, $stateParams, $rootScope, $ionicHistory, $ionicPopup, lcApi, messages) {

@@ -12,8 +12,8 @@
                   infinite-scroll-end="viewState.infiniteScrollEnd"
                 >
             <ion-item ng-repeat="item in items" ng-href="#/app/entity/{{mainEntityTypeId}}/{{item.id}}">
-                <h2>{{item[referenceNameExpression]}}</h2>
-                <p>{{item.date | date}}</p>
+                <h2><span lc-field="mainFieldDescription(fieldDescriptions)" ng-model="item[mainFieldDescription(fieldDescriptions).field]" is-editor="false"></span></h2>
+                <p><span lc-field="additionalFieldDescription(fieldDescriptions)" ng-model="item[additionalFieldDescription(fieldDescriptions).field]" is-editor="false"></span></p>
             </ion-item>
             <p ng-if="items && !items.length" class="padding" style="text-align: center"><b lc-message="No records"></b></p>
         </ion-list>

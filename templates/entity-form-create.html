@@ -8,7 +8,9 @@
             <ion-item class="item-icon-right" ng-repeat="fd in fieldDescriptions"
                       ng-href="#/app/entity/{{entityTypeId}}/{{entityId}}/{{fd.field}}">
                 <span>{{fd.name}}</span>
-                <span lc-field="fd" ng-model="entity[fd.field]"></span>
+                <div class="item-note">
+                    <span lc-field="fd" ng-model="entity[fd.field]"></span>
+                </div>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
         </ion-list>

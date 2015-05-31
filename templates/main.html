@@ -4,6 +4,9 @@
     </ion-nav-title>
     <ion-content>
         <ion-list class="lc-menu">
+            <div class="text-center padding" ng-if="!menuItems">
+                <ion-spinner></ion-spinner>
+            </div>
             <div ng-repeat="item in menuItems">
                 <div class="item item-divider" ng-if="item.children && item.children.length">
                     {{item.name}}

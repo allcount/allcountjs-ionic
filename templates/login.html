@@ -19,6 +19,9 @@
         <label class="item">
           <button class="button button-block button-positive" type="submit">Log in</button>
         </label>
+        <div class="item text-center" ng-if="loginError">
+          <div class="assertive">{{loginError}}</div>
+        </div>
       </div>
     </form>
   </ion-content>

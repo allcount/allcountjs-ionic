@@ -480,7 +480,7 @@ allcountMobileModule.controller('MainScreenController', function ($scope, lcApi)
     })
 });
 
-allcountMobileModule.controller('MenuController', function ($scope, $ionicModal, lcApi, lcApiConfig, $window, templatePath) {
+allcountMobileModule.controller('MenuController', function ($scope, $ionicModal, lcApi, lcApiConfig, $window, templatePath, messages) {
     $scope.loginData = {};
 
     $ionicModal.fromTemplateUrl(templatePath + '/login.html', {
@@ -498,9 +498,12 @@ allcountMobileModule.controller('MenuController', function ($scope, $ionicModal,
     };
 
     $scope.doLogin = function () {
+        $scope.loginError = undefined;
         lcApi.signIn($scope.loginData.username, $scope.loginData.password).then(function () {
             $scope.closeLogin();
             $window.location.reload(true)
+        }, function (resp) {
+            $scope.loginError = resp.data === 'Not authenticated' ? messages('Invalid login or password') : resp.data;
         });
     };
 

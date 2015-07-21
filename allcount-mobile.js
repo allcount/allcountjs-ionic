@@ -503,7 +503,7 @@ allcountMobileModule.controller('MenuController', function ($scope, $ionicModal,
             $scope.closeLogin();
             $window.location.reload(true)
         }, function (resp) {
-            $scope.loginError = resp.data === 'Not authenticated' ? messages('Invalid login or password') : resp.data;
+            $scope.loginError = resp.data === 'Not authenticated' ? messages('Invalid login or password') : messages('Server error occurred. Please try again later.');
         });
     };
 

@@ -23,6 +23,64 @@ allcountMobileModule.config(["$httpProvider", function ($httpProvider) {
     }]);
 }]);
 
+allcountMobileModule.config(["lcApiProvider", function (lcApiProvider) {
+    lcApiProvider.setDescriptionCaching(true);
+}]);
+
+allcountMobileModule.config(["$provide", function ($provide) {
+    $provide.decorator('lcApi', ["$delegate", "$q", function ($delegate, $q) {
+        var findRangeSuper = $delegate.findRange,
+            readEntitySuper = $delegate.readEntity,
+            updateEntitySuper = $delegate.updateEntity,
+            deleteEntitySuper = $delegate.deleteEntity;
+
+        var entityUrlToEntities = {};
+
+        $delegate.findRange = function (entityCrudId, filtering, start, count) {
+            return findRangeSuper.apply($delegate, arguments).then(function (items) {
+                var entityUrl = $delegate.entityUrl(entityCrudId);
+                if (start === 0) { //TODO should refresh explicitly?
+                    entityUrlToEntities[entityUrl] = {};
+                }
+                entityUrlToEntities[entityUrl] = entityUrlToEntities[entityUrl] || {};
+                _.forEach(items, function (item) {
+                    entityUrlToEntities[entityUrl][item.id] = item;
+                });
+                return items;
+            });
+        };
+
+        $delegate.readEntity = function readEntity(entityCrudId, entityId, successCallback) {
+            var entityUrl = $delegate.entityUrl(entityCrudId);
+            if (entityUrlToEntities[entityUrl] && entityUrlToEntities[entityUrl][entityId]) {
+                return $delegate.promiseWithCallback($q.when(entityUrlToEntities[entityUrl][entityId]), successCallback);
+            } else {
+                return readEntitySuper.apply($delegate, arguments);
+            }
+        };
+
+        $delegate.updateEntity = function (entityCrudId) {
+            return updateEntitySuper.apply($delegate, arguments).then(function (entity) {
+                var entityUrl = $delegate.entityUrl(entityCrudId);
+                entityUrlToEntities[entityUrl] = entityUrlToEntities[entityUrl] || {};
+                entityUrlToEntities[entityUrl][entity.id] = entity;
+                return entity;
+            });
+        };
+
+        $delegate.deleteEntity = function (entityCrudId, entityId) {
+            return deleteEntitySuper.apply($delegate, arguments).then(function (res) {
+                var entityUrl = $delegate.entityUrl(entityCrudId);
+                entityUrlToEntities[entityUrl] = entityUrlToEntities[entityUrl] || {};
+                delete entityUrlToEntities[entityUrl][entityId];
+                return res;
+            })
+        };
+
+        return $delegate;
+    }])
+}]);
+
 allcountMobileModule.config(["$stateProvider", function ($stateProvider) {
     $stateProvider.setupStandardAllcountMainState = function (stateName, templatePath, stateUrl) {
         return this

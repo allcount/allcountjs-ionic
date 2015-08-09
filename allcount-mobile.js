@@ -428,11 +428,9 @@ allcountMobileModule.factory('entityCreateService', [function () {
 allcountMobileModule.controller('EntityController', function ($scope, $stateParams, $ionicHistory, lcApi) {
     $scope.viewState = {};
     $scope.mainEntityTypeId = $stateParams.entityTypeId;
-    $scope.$on('$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams){
-            if ($ionicHistory.currentStateName() === toState.name && toParams.entityTypeId === $scope.mainEntityTypeId && $scope.viewState.gridMethods) {
-                $scope.viewState.gridMethods.updateGrid();
-            }
+    $scope.$on('$ionicView.enter',
+        function () {
+            $scope.viewState.gridMethods.updateGrid();
         }
     );
     $scope.loadNextItems = function () {
@@ -472,11 +470,9 @@ allcountMobileModule.controller('EntityFormController', function ($scope, $state
     $scope.mainEntityTypeId = $stateParams.entityTypeId;
     $scope.entityId = $stateParams.entityId;
 
-    $scope.$on('$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams){
-            if ($ionicHistory.currentStateName() === toState.name && toParams.entityId === $scope.entityId && toParams.entityTypeId === $scope.mainEntityTypeId && $scope.viewState.editForm) {
-                $scope.viewState.editForm.reloadEntity();
-            }
+    $scope.$on('$ionicView.enter',
+        function () {
+            $scope.viewState.editForm.reloadEntity();
         }
     );
 

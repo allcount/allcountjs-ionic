@@ -219,7 +219,7 @@ allcountMobileModule.config(["fieldRenderingServiceProvider", function (fieldRen
 
         function maskedInput(controller, updateValue, mask) {
             var input = $('<input type="text" class="item-node"/>');
-            $(input).inputmask(mask);
+            $(input).inputmask(mask, { showMaskOnFocus: false, showMaskOnHover: false });
             input.val(controller.$viewValue);
             function listener() {
                 var value = $.trim($(this).val());

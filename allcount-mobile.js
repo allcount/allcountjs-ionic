@@ -304,7 +304,7 @@ allcountMobileModule.config(["fieldRenderingServiceProvider", function (fieldRen
             reference: [function (value) {
                 return value ? value.name : undefined;
             }, function (fieldDescription, controller, updateValue, clone, scope) {
-                if (fieldDescription.fieldType.render === 'fixed') {
+                if (/*fieldDescription.fieldType.render === 'fixed'*/ true) { //TODO implement lazy loading reference field
                     rest.referenceValues(fieldDescription.fieldType.referenceEntityTypeId, function (referenceValues) {
                         scope.referenceValues = referenceValues;
                         scope.referenceIdToValue = {};
@@ -316,7 +316,7 @@ allcountMobileModule.config(["fieldRenderingServiceProvider", function (fieldRen
                         });
                     });
                     scope.model = {selectedReferenceId: controller.$viewValue ? controller.$viewValue.id : undefined};
-                    return $compile('<div><label class="item item-radio" ng-repeat="r in referenceValues"><input type="radio" ng-model="model.selectedReferenceId" ng-value="r.id"><div class="item-content">{{r.name}}&nbsp;</div><i class="radio-icon ion-checkmark"></i></label></div>')(scope);
+                    return $compile('<div><ion-radio ng-repeat="r in referenceValues" ng-model="model.selectedReferenceId" ng-value="r.id">{{r.name}}&nbsp;</ion-radio></div>')(scope);
                 } else {
                     scope.referenceEntityTypeId = fieldDescription.fieldType.referenceEntityTypeId;
 
